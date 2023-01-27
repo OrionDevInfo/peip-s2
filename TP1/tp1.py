@@ -65,10 +65,11 @@ def liste_des_formations(l):
     >>> sorted(liste_des_formations(cList[0:2])) == ['PEIP', 'SESI']
     True
     '''
-    l2 = []
+    d = {}
     for e in l:
-        l2.append(e['formation'])
-    return set(l2)
+        if e['formation'] not in d:
+            d[e['formation']] = 1
+    return list(d)
 
 
 def compter_occurrences_prenoms(liste):
@@ -76,7 +77,6 @@ def compter_occurrences_prenoms(liste):
     Compter le nombre d'étudiants ayant le même prénom dans la liste d'étudiants passée en paramètre.
     :param liste: liste des étudiants, chacun étant représenté par un dictionnaire contenant les clés 'prenom'
     :return: dictionnaire contenant les prénoms en clé et le nombre d'occurrences en valeur
-
     >>> compter_occurrences_prenoms([{'prenom': 'Alexandre'}, {'prenom': 'Camille'}, {'prenom': 'Alexandre'}])
     {'Alexandre': 2, 'Camille': 1}
     >>> compter_occurrences_prenoms([{'prenom': 'Camille'}, {'prenom': 'Camille'}])
@@ -95,7 +95,6 @@ def compter_occurrences_prenoms(liste):
 def nombre_prenoms_differents(l):
     '''
     Cette fonction prend en paramètre une liste d'étudiants et renvoie le nombre de prénoms différents parmi tous les étudiants.
-
     Exemples :
     >>> nombre_prenoms_differents(cList)
     9
@@ -125,15 +124,10 @@ def prenom_le_plus_frequent(liste):
 def verifier_nip_distincts(liste):
     nips = {}
     i = 0
-    while i < len(liste):
-        nip = liste[i]['nip']
-        if nip in nips:
-            # print("Identifiant en double : ", nip)
-            return False
-        else:
-            nips[nip] = 1
+    while i < len(liste) and liste[i]['nip'] not in nips:
+        nips[nip] = 1
         i += 1
-    return True
+    return i == len(liste)
 
 
 def compter_occurrences_formations(liste_etudiants):
