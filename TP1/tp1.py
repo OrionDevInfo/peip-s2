@@ -151,4 +151,17 @@ def compter_occurrences_formations(liste_etudiants):
     return formations
 
 
+def liste_formation(liste, form):
+    """
+    >>> l_SESI = liste_formation(cList, 'SESI')
+    >>> len(l_SESI)
+    6
+    >>> type(l_SESI[1]) == tuple and len(l_SESI[1]) == 4
+    True
+    >>> len(liste_formation(L_ETUDIANTS, 'INFO'))
+    0
+    """
+    return [(etudiant['nip'], etudiant['nom'], etudiant['prenom'], etudiant['groupe']) for etudiant in liste if etudiant['formation'] == form]
+
+
 testmod(verbose=False)
